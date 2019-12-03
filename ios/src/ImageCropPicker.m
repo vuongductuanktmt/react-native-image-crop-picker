@@ -210,23 +210,23 @@ RCT_EXPORT_METHOD(openCamera:(NSDictionary *)options
         NSString *fileName = [[asset.URL path] lastPathComponent];
 
         [self handleVideo:asset
-             withFileName:fileName
-      withLocalIdentifier:nil
-               completion:^(NSDictionary* video) {
-                   dispatch_async(dispatch_get_main_queue(), ^{
-                       if (video == nil) {
-                           [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
-                               self.reject(ERROR_CANNOT_PROCESS_VIDEO_KEY, ERROR_CANNOT_PROCESS_VIDEO_MSG, nil);
-                           }]];
-                           return;
-                       }
+               withFileName:fileName
+        withLocalIdentifier:nil
+                 completion:^(NSDictionary* video) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                     if (video == nil) {
+                         [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
+                             self.reject(ERROR_CANNOT_PROCESS_VIDEO_KEY, ERROR_CANNOT_PROCESS_VIDEO_MSG, nil);
+                         }]];
+                         return;
+                     }
 
-                       [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
-                           self.resolve(video);
-                       }]];
-                   };
-               }
-         ];
+                     [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
+                         self.resolve(video);
+                     }]];
+                     });
+                 }
+           ];
     } else {
         UIImage *chosenImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 
